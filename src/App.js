@@ -4,10 +4,15 @@ import ThemeContext from "./contexts/ThemeContext";
 
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => {
+    const storageTheme = localStorage.getItem("theme");
+    return storageTheme || "light";
+  });
 
   const handleThemeChange = ({target}) => {
-    setTheme(target.checked ? "dark" : "light")
+    const newTheme = target.checked ? "dark" : "light";
+    localStorage.setItem("theme", newTheme);
+    setTheme(newTheme);
   };
 
   return (
